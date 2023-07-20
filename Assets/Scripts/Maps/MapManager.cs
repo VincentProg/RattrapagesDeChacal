@@ -8,10 +8,8 @@ public class MapManager : MonoBehaviour
 
     // OBJECT POOLING
     [SerializeField]
-    int nbrMapToInitialize;
-    [SerializeField]
-    List<Transform> prefabsMaps;
-    Transform[] maps;
+    List<Map> prefabsMaps;
+    Map[] maps;
 
     // SPAWN DATAS
     [HideInInspector]
@@ -34,17 +32,13 @@ public class MapManager : MonoBehaviour
     void Start()
     {
         InitializeMaps();
+        canSpawn = true;
     }
 
     // Update is called once per frame
     void Update(){
 
-        if (canSpawn)
-        {
-            canSpawn = false;
-            SpawnMap();
-        }
-
+        SpawnMap();
         speedMaps += Time.deltaTime * accelerationMapOverTime;
         speedMaps = Mathf.Clamp(speedMaps, 0, maxSpeed);
 
@@ -52,14 +46,13 @@ public class MapManager : MonoBehaviour
 
     void InitializeMaps()
     {
-        maps = new Transform[nbrMapToInitialize];
-        for(int i = 0; i < nbrMapToInitialize; i++)
+        maps = new Map[prefabsMaps.Count];
+        for(int i = 0; i < prefabsMaps.Count; i++)
         {
-            int rand = Random.Range(0, prefabsMaps.Count);
-            Transform newMap = Instantiate(prefabsMaps[rand], transform.GetChild(0));
-
-            newMap.transform.position = new Vector3(SpawnZone.transform.position.x, newMap.transform.position.y, 0);
+            Map newMap = Instantiate(prefabsMaps[i], transform.GetChild(0));
+            newMap.transform.position = new Vector3(0, SpawnZone.transform.position.y, 0);
             newMap.gameObject.SetActive(false);
+            newMap.GetComponent<MeshRenderer>().enabled = false;
             maps[i] = newMap;
         }
     }
@@ -67,18 +60,21 @@ public class MapManager : MonoBehaviour
 
     void SpawnMap()
     {
-
-        maps[indexSpawn].gameObject.SetActive(true);
-        indexSpawn++;
-        if(indexSpawn >= nbrMapToInitialize)
+        if (!canSpawn)
+            return;
+        
+        canSpawn = false;
+        int rand = Random.Range(0, maps.Length);
+        while (maps[rand].isActiveAndEnabled)
         {
-            indexSpawn = 0;
+            rand = (rand + 1) % maps.Length;
         }
+        maps[rand].gameObject.SetActive(true);
     }
 
-    public void RemoveMap(Transform map)
+    public void RemoveMap(Map map)
     {
         map.gameObject.SetActive(false);
-        map.transform.position = new Vector3(SpawnZone.transform.position.x, map.transform.position.y, 0);
+        map.transform.position = new Vector3(0, SpawnZone.transform.position.y, 0);
     }
 }

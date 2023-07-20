@@ -3,13 +3,14 @@ using System.Collections;
 
 public class PlayerMouvement : MonoBehaviour
 {
-    
     private PlayerComponents myComponents;
 
-    [SerializeField]
-    private KeyCode keyDash;
+    [SerializeField] private KeyCode keyLeft;
+    [SerializeField] private KeyCode keyRight;
+    // [SerializeField] private KeyCode keyDash;
 
-    private bool isMousePressed;
+    private bool isLeftPressed;
+    private bool isRightPressed;
 
     [SerializeField] float accelerationSpeed;
     [SerializeField] float maxSpeed;
@@ -17,9 +18,9 @@ public class PlayerMouvement : MonoBehaviour
 
     private bool canMove = true;
     private bool canDash = true;
-    [SerializeField] float timeDash, speedDash, timeRecoverDash;
-
-    [SerializeField] Material blue, blueIntense, blueWeak;
+    // [SerializeField] float timeDash, speedDash, timeRecoverDash;
+    //
+    // [SerializeField] Material blue, blueIntense, blueWeak;
 
     // Start is called before the first frame update
     void Start()
@@ -30,85 +31,67 @@ public class PlayerMouvement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            isMousePressed = true;
-        } else if (Input.GetMouseButtonUp(0))
-        {
-            isMousePressed = false;
-        }
+        isLeftPressed = Input.GetKey(keyLeft);
+        isRightPressed = Input.GetKey(keyRight);
 
-        if (Input.GetKeyDown(keyDash) && canDash)
-        {
-            StartCoroutine(Dash());
-        }
+        // if (Input.GetKeyDown(keyDash) && canDash)
+        // {
+        //     StartCoroutine(Dash());
+        // }
     }
 
     private void FixedUpdate()
     {
-        if(canMove)
-        Move();
-        GetMouseDirection();
+        if (canMove)
+            Move();
     }
 
     void Move()
     {
-
-
-        switch (isMousePressed)
+        Vector3 dir = Vector3.zero;
+        if (isLeftPressed && !isRightPressed)
         {
-            case true: // MOUSE IS PRESSED
-
-                Vector3 dir = GetMouseDirection(); 
-                myComponents.rigidBody.velocity += dir.normalized * accelerationSpeed * Time.fixedDeltaTime;
-                if (myComponents.rigidBody.velocity.magnitude > maxSpeed)
-                {
-                    myComponents.rigidBody.velocity = Vector2.ClampMagnitude(myComponents.rigidBody.velocity, maxSpeed);
-                }
-                break;
-
-            case false: // MOUSE IS NOT PRESSED
-
-                if (myComponents.rigidBody.velocity.magnitude > 0.1f)
-                    myComponents.rigidBody.velocity -= myComponents.rigidBody.velocity.normalized * decelerationSpeed * Time.fixedDeltaTime;
-                else myComponents.rigidBody.velocity = Vector2.zero;
-                break;
+            dir = Vector3.left;
+        }
+        else if (isRightPressed && !isLeftPressed)
+        {
+            dir = -Vector3.left;
         }
 
-
+        if (dir != Vector3.zero)
+        {
+            myComponents.rigidBody.velocity += dir * (accelerationSpeed * Time.fixedDeltaTime);
+            if (myComponents.rigidBody.velocity.magnitude > maxSpeed)
+            {
+                myComponents.rigidBody.velocity = Vector2.ClampMagnitude(myComponents.rigidBody.velocity, maxSpeed);
+            }
+        }
+        else
+        {
+            if (myComponents.rigidBody.velocity.sqrMagnitude > 0.05f)
+                myComponents.rigidBody.velocity *= decelerationSpeed;
+            else myComponents.rigidBody.velocity = Vector3.zero;
+        }
     }
-
-    Vector3 GetMouseDirection()
-    {
-
-        Vector3 mousePosition = Input.mousePosition + new Vector3(0,0, -Camera.main.transform.position.z);
-        Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(mousePosition);
-
-        Vector3 direction = (mouseWorldPos - transform.position).normalized;
-
-        return direction;
-    }
-
-
-    IEnumerator Dash()
-    {
-        print("dash");
-        PlayerCollision playerCollision = GetComponent<PlayerCollision>();
-        playerCollision.canDie = false;
-        canMove = false;
-        canDash = false;
-        myComponents.rend.material = blueIntense;
-        myComponents.rigidBody.velocity = GetMouseDirection() * speedDash;
-        myComponents.col.isTrigger = true;
-        yield return new WaitForSeconds(timeDash);
-        myComponents.col.isTrigger = false;
-        playerCollision.canDie = true;
-        canMove = true;
-        myComponents.rigidBody.velocity = Vector3.zero;
-        myComponents.rend.material = blueWeak;
-        yield return new WaitForSeconds(timeRecoverDash);
-        myComponents.rend.material = blue;
-        canDash = true;
-
-    }
+    
+    // IEnumerator Dash()
+    // {
+    //     print("dash");
+    //     PlayerCollision playerCollision = GetComponent<PlayerCollision>();
+    //     playerCollision.canDie = false;
+    //     canMove = false;
+    //     canDash = false;
+    //     myComponents.rend.material = blueIntense;
+    //     myComponents.rigidBody.velocity = GetMouseDirection() * speedDash;
+    //     myComponents.col.isTrigger = true;
+    //     yield return new WaitForSeconds(timeDash);
+    //     myComponents.col.isTrigger = false;
+    //     playerCollision.canDie = true;
+    //     canMove = true;
+    //     myComponents.rigidBody.velocity = Vector3.zero;
+    //     myComponents.rend.material = blueWeak;
+    //     yield return new WaitForSeconds(timeRecoverDash);
+    //     myComponents.rend.material = blue;
+    //     canDash = true;
+    // }
 }

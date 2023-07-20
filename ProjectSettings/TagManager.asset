@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Map
   - DeadWall
+  - Wall
   layers:
   - Default
   - TransparentFX
@@ -13,8 +14,8 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
+  - Limits
+  - Map
   - 
   - 
   - 

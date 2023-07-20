@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpawnZone : MonoBehaviour
+public class WallSpawnZone : MonoBehaviour
 {
 
     private void OnTriggerExit(Collider other)
