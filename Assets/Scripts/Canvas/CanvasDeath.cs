@@ -10,14 +10,16 @@ public class CanvasDeath : MonoBehaviour
     [SerializeField] GameObject UIDeath;
     [SerializeField] Text timetext;
 
+    private float m_startTime;
 
     private void Start()
     {
         UIDeath.SetActive(false);
+        m_startTime = Time.time;
     }
     public void OnDeath()
     {
-        timetext.text = ((int)Time.time).ToString() + " seconds";
+        timetext.text = (int)(Time.time - m_startTime)+ " seconds";
         UIDeath.SetActive(true);
     }
 

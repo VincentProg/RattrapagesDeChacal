@@ -1,28 +1,24 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class PlayerCollision : MonoBehaviour
 {
+    
+    public event Action Death;
 
-    PlayerComponents myComponents;
-    Player myPlayer;
-    [HideInInspector]
-    public bool canDie = true;
-
-    private void Start()
-    {
-        myComponents = GetComponent<PlayerComponents>();
-        myPlayer = GetComponent<Player>();
-    }
 
     private void OnTriggerEnter(Collider other)
     {
-        if(canDie)
         if (other.CompareTag("DeadWall"))
         {
-            myPlayer.Death();
+            OnDeath();
         }
+    }
+
+    private void OnDeath()
+    {
+        Death.Invoke();
+        this.enabled = false;
     }
 
 }

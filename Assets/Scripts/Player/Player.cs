@@ -1,25 +1,29 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public event Action<Player> Death;
+    public Rigidbody rigidBody { get; private set; }
+    public Collider col { get; private set; }
+    public Renderer rend { get; private set; }
 
-    [SerializeField] CanvasDeath canvasDeath;
-    PlayerMouvement playerMouvement;
-    PlayerCollision playerCollision;
+    private PlayerCollision m_playerCollision;
 
-    private void Start()
+    // Start is called before the first frame update
+    void Awake()
     {
-        playerMouvement = GetComponent<PlayerMouvement>();
-        playerCollision = GetComponent<PlayerCollision>();
+        rigidBody = GetComponent<Rigidbody>();
+        col = GetComponent<Collider>();
+        rend = GetComponent<Renderer>();
+        m_playerCollision = GetComponent<PlayerCollision>();
+        m_playerCollision.Death += OnDeath;
     }
 
-    public void Death()
+    private void OnDeath()
     {
-        playerMouvement.enabled = false;
-        playerCollision.enabled = false;
-        canvasDeath.OnDeath();
+        Death?.Invoke(this);
+        this.enabled = false;
     }
 
 }
