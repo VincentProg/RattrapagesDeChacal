@@ -18,7 +18,7 @@ public class PlayerMouvementManager : MonoBehaviour
 
     public List<Rigidbody> m_rbs { get; private set; }
 
-    void Start()
+    void Awake()
     {
         m_rbs = new List<Rigidbody>();
     }

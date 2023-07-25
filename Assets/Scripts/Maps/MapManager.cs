@@ -70,6 +70,10 @@ public class MapManager : MonoBehaviour
             rand = (rand + 1) % maps.Length;
         }
         maps[rand].gameObject.SetActive(true);
+        foreach (Transform l_map in maps[rand].transform)
+        {
+            l_map.gameObject.SetActive(true);
+        }
     }
 
     public void RemoveMap(Map map)

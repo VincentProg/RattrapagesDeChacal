@@ -13,20 +13,19 @@ public class PlayerManager : MonoBehaviour
     
     private List<Player> m_players;
 
-    private void Start()
+    private void Awake()
     {
         m_players = new List<Player>();
         playerMouvementManager = GetComponent<PlayerMouvementManager>();
-
-        AddPlayer(Vector3.zero);
     }
 
-    public void AddPlayer(Vector3 p_pos)
+    public Player AddPlayer(Vector3 p_pos)
     {
         Player l_player = Instantiate(m_prefab, p_pos, Quaternion.identity);
         l_player.Death += RemovePlayer;
         m_players.Add(l_player);
         playerMouvementManager.m_rbs.Add(l_player.rigidBody);
+        return l_player;
     }
 
     public void RemovePlayer(Player p_player )
