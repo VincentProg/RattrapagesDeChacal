@@ -335,7 +335,7 @@ MonoBehaviour:
   m_spriteSpawn: {fileID: 124467400}
   l_wind: {fileID: 495028929}
   l_duration: 2
-  l_delaySpawn: 0.1
+  l_delaySpawn: 0.03
 --- !u!212 &124467400
 SpriteRenderer:
   m_ObjectHideFlags: 0
