@@ -8,18 +8,23 @@ public class CanvasDeath : MonoBehaviour
 {
 
     [SerializeField] GameObject UIDeath;
-    [SerializeField] Text timetext;
+    [SerializeField] Text scoreText;
 
-    private float m_startTime;
+    private int score;
 
     private void Start()
     {
         UIDeath.SetActive(false);
-        m_startTime = Time.time;
     }
+
+    public void IncrementScore()
+    {
+        score++;
+    }
+    
     public void OnDeath()
     {
-        timetext.text = (int)(Time.time - m_startTime)+ " seconds";
+        scoreText.text = "Score : " + score;
         UIDeath.SetActive(true);
     }
 

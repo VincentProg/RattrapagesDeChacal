@@ -4,6 +4,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public event Action<Player> Death;
+    public event Action Wind;
     public Rigidbody rigidBody { get; private set; }
     public Collider col { get; private set; }
     public Renderer rend { get; private set; }
@@ -18,12 +19,24 @@ public class Player : MonoBehaviour
         rend = GetComponent<Renderer>();
         m_playerCollision = GetComponent<PlayerCollision>();
         m_playerCollision.Death += OnDeath;
+        m_playerCollision.WindItem += OnWind;
+    }
+
+    private void OnDestroy()
+    {
+        m_playerCollision.Death -= OnDeath;
+        m_playerCollision.WindItem -= OnWind;
     }
 
     private void OnDeath()
     {
         Death?.Invoke(this);
         this.enabled = false;
+    }
+
+    private void OnWind()
+    {
+        Wind?.Invoke();
     }
 
 }

@@ -12,6 +12,10 @@ PrefabInstance:
       value: Map1
       objectReference: {fileID: 0}
     - target: {fileID: 3085509198100232705, guid: 54aa507a91932674594549ea2eb381e5, type: 3}
+      propertyPath: m_LocalScale.x
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3085509198100232705, guid: 54aa507a91932674594549ea2eb381e5, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.659
       objectReference: {fileID: 0}

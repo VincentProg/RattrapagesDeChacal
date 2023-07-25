@@ -7,6 +7,7 @@ TagManager:
   - Map
   - DeadWall
   - Wall
+  - WindItem
   layers:
   - Default
   - TransparentFX
