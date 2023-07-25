@@ -16,11 +16,11 @@ public class PlayerMouvementManager : MonoBehaviour
     private bool isLeftPressed;
     private bool isRightPressed;
 
-    public List<Rigidbody> m_rbs { get; private set; }
+    public List<Rigidbody2D> m_rbs { get; private set; }
 
     void Awake()
     {
-        m_rbs = new List<Rigidbody>();
+        m_rbs = new List<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -37,19 +37,19 @@ public class PlayerMouvementManager : MonoBehaviour
 
     void Move()
     {
-        Vector3 dir = Vector3.zero;
+        Vector2 dir = Vector2.zero;
         if (isLeftPressed && !isRightPressed)
         {
-            dir = Vector3.left;
+            dir = Vector2.left;
         }
         else if (isRightPressed && !isLeftPressed)
         {
-            dir = -Vector3.left;
+            dir = -Vector2.left;
         }
 
-        foreach (Rigidbody l_rb in m_rbs)
+        foreach (Rigidbody2D l_rb in m_rbs)
         {
-            if (dir != Vector3.zero)
+            if (dir != Vector2.zero)
             {
                 l_rb.velocity += dir * (accelerationSpeed * Time.fixedDeltaTime);
                 if (l_rb.velocity.magnitude > maxSpeed)

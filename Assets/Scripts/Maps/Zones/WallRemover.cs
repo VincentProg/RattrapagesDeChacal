@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WallRemover : MonoBehaviour
 {
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         Map l_map = other.GetComponent<Map>();
         if (!l_map) 

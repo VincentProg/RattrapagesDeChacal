@@ -22,7 +22,7 @@ public class PlayerSpawner : MonoBehaviour
         Bounds l_bounds = m_spriteSpawn.bounds;
         m_horizontalRange = new Vector2(l_bounds.min.x, l_bounds.max.x);
         m_verticalRange = new Vector2(l_bounds.min.y, l_bounds.max.y);
-        SpawnPlayerAtPos(Vector3.zero);
+        ActivateWind();
     }
 
     // Update is called once per frame

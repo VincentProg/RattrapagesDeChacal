@@ -11,6 +11,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Map1
       objectReference: {fileID: 0}
+    - target: {fileID: 1649697702101196370, guid: 54aa507a91932674594549ea2eb381e5, type: 3}
+      propertyPath: m_Constraints
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 3085509198100232705, guid: 54aa507a91932674594549ea2eb381e5, type: 3}
       propertyPath: m_LocalScale.x
       value: -1
@@ -26,7 +30,7 @@ PrefabInstance:
     - target: {fileID: 3808937518583041853, guid: 54aa507a91932674594549ea2eb381e5, type: 3}
       propertyPath: rb
       value: 
-      objectReference: {fileID: 5666937321764606015}
+      objectReference: {fileID: 1293483076891262476}
     - target: {fileID: 5641591068156223946, guid: 54aa507a91932674594549ea2eb381e5, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -73,14 +77,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 54aa507a91932674594549ea2eb381e5, type: 3}
+--- !u!50 &1293483076891262476 stripped
+Rigidbody2D:
+  m_CorrespondingSourceObject: {fileID: 1649697702101196370, guid: 54aa507a91932674594549ea2eb381e5, type: 3}
+  m_PrefabInstance: {fileID: 511025862704898142}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5286507428075520404 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5641591068156223946, guid: 54aa507a91932674594549ea2eb381e5, type: 3}
-  m_PrefabInstance: {fileID: 511025862704898142}
-  m_PrefabAsset: {fileID: 0}
---- !u!54 &5666937321764606015 stripped
-Rigidbody:
-  m_CorrespondingSourceObject: {fileID: 5310454419760803937, guid: 54aa507a91932674594549ea2eb381e5, type: 3}
   m_PrefabInstance: {fileID: 511025862704898142}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1400699978070972280

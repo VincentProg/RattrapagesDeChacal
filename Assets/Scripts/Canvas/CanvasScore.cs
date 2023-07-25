@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
 
-public class CanvasDeath : MonoBehaviour
+public class CanvasScore : MonoBehaviour
 {
 
     [SerializeField] GameObject UIDeath;
-    [SerializeField] Text scoreText;
+    [SerializeField] Text scoreDeathText;
+    [SerializeField] private TextMeshProUGUI m_topScore;
 
     private int score;
 
@@ -20,12 +22,14 @@ public class CanvasDeath : MonoBehaviour
     public void IncrementScore()
     {
         score++;
+        m_topScore.text = score.ToString();
     }
     
     public void OnDeath()
     {
-        scoreText.text = "Score : " + score;
+        scoreDeathText.text = score.ToString();
         UIDeath.SetActive(true);
+        m_topScore.gameObject.SetActive(false);
     }
 
     public void Retry()

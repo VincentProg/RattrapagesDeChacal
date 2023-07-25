@@ -8,6 +8,7 @@ TagManager:
   - DeadWall
   - Wall
   - WindItem
+  - ScoreIncrementer
   layers:
   - Default
   - TransparentFX

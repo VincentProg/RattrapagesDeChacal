@@ -6,7 +6,7 @@ using UnityEngine;
 public class Map : MonoBehaviour
 {
     [SerializeField]
-    private Rigidbody rb;
+    private Rigidbody2D rb;
     // Update is called once per frame
     private void OnEnable()
     {

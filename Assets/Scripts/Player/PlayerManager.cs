@@ -8,7 +8,7 @@ public class PlayerManager : MonoBehaviour
     [SerializeField]
     private Player m_prefab;
 
-    [SerializeField] CanvasDeath canvasDeath;
+    [SerializeField] CanvasScore canvasScore;
     PlayerMouvementManager playerMouvementManager;
     
     private List<Player> m_players;
@@ -23,6 +23,7 @@ public class PlayerManager : MonoBehaviour
     {
         Player l_player = Instantiate(m_prefab, p_pos, Quaternion.identity);
         l_player.Death += RemovePlayer;
+        l_player.Score += canvasScore.IncrementScore;
         m_players.Add(l_player);
         playerMouvementManager.m_rbs.Add(l_player.rigidBody);
         return l_player;
@@ -43,7 +44,7 @@ public class PlayerManager : MonoBehaviour
     public void Death()
     {
         playerMouvementManager.enabled = false;
-        canvasDeath.OnDeath();
+        canvasScore.OnDeath();
         this.enabled = false;
     }
 
